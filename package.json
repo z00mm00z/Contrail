@@ -1,0 +1,27 @@
+{
+  "name": "contrail",
+  "version": "1.0.0",
+  "description": "A Discord Weather Bot in Javascript",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/z00mm00z/Contrail.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/z00mm00z/Contrail/issues"
+  },
+  "homepage": "https://github.com/z00mm00z/Contrail#readme",
+  "dependencies": {
+    "discord.js": "^14.6.0",
+    "dotenv": "^16.0.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
