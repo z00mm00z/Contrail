@@ -1,6 +1,6 @@
 key = '25222afb74d1e9f508fe4c2a71c21d12';
-var request;
-const returnTypes = ['description', 'desc', 'temp', 'temperature', ]
+var request, requestType, result;
+const requestTypes = ['description', 'desc', 'temp', 'temperature', ]
 var dataRaw;
 
 
@@ -9,23 +9,40 @@ module.exports = {
     description: 'Weather Command',
     execute(message, args){
         
-        if (args[0] != undefined && !returnTypes.includes(args[0].toLowerCase()))
+        if (args[0] != undefined && !requestTypes.includes(args[0].toLowerCase()))
         {
             request = args.join(' ');
-            console.log(request);
+            requestType = 'desc';
+            console.log('Request: ' + request);
+        } else if (requestTypes.includes(args[0].toLowerCase())) {
+            request = args.join(' ');
+            requestType = request.split(' ')[0];
+            request = request.replace(requestType + ' ', '');
+            console.log('R: ' + request + ' T: ' + requestType);
         }
 
         fetch('https://api.openweathermap.org/data/2.5/weather?q=' + request + '&appid=' + key)  
         .then(function(resp) { return resp.json() }) // Convert data to json
         .then(function(data) {
-            message.channel.send(data.weather[0].description);
+            if (requestType == requestTypes[0] || requestType == requestTypes[1]) {
+              result = 'Conditions in ' + data.name + ': **' + data.weather[0].description + ' with ' + (data.wind.speed).toString() + ' m/s winds in a ' + degToCompass(data.wind.deg).toString() +'ern direction.**';
+            } else if (requestType == requestTypes[2] || requestType == requestTypes[3]) {
+              result = 'Temperature in ' + data.name + ': **' + (data.main.temp - 273.15).toFixed(0) + ' °C**';
+            }
+            message.channel.send(result);
             console.log(data.name)
         })
-        .catch(function() {
-            message.channel.send('Could not retrieve Weather Data for ' + request)
+        .catch(function(error) {
+            message.channel.send('Could not retrieve Weather Data for "' + request + '".');
+            console.log(error);
         });
     }
 };
+
+function degToCompass(angle) { //Returns direction from angle (degrees)
+  _directions = ["North","North Northeast","Northeast","East Northeast","East","East Southeast", "Southeast", "South Southeast","South","South Southwest","South West","West Southwest","West","West Northwest","Northwest","North Northwest"];
+  return _directions[Math.round(angle / 45) % 8]; //Change 8 to 16 for more detail
+}
 
 /*
 {
