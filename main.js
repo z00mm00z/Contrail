@@ -47,15 +47,6 @@ client.on('messageCreate', message => {
     const args = message.content.slice(prefix.length).split(/ +/)
     const command = args.shift().toLowerCase();
 
-    fetch('https://api.openweathermap.org/data/2.5/weather?q=' + 'Cape,Town,South,Africa' + '&appid=' + OWMapiKey)  
-        .then(function(resp) { return resp.json() }) // Convert data to json
-        .then(function(data) {
-            message.channel.send('First: ' + data.weather[0].description)
-        })
-        .catch(function() {
-            message.channel.send('Could not retrieve Weather Data for ' + args[0])  
-        });
-
     if(client.commands.has(command)) {
         try {
             client.commands.get(command).execute(message, args);
