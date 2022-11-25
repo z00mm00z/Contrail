@@ -4,9 +4,7 @@ const {Client, GatewayIntentBits, Collection} = require("discord.js");
 
 const fs = require('node:fs');
 const path = require('node:path');
-const { fileURLToPath } = require('node:url');
 
-const OWMapiKey = '25222afb74d1e9f508fe4c2a71c21d12'
 const prefix = '!'
 
 const client = new Client({
@@ -55,10 +53,8 @@ client.on('messageCreate', message => {
             message.channel.send('An error occured: ' + error)
         }
     }else{
-        console.log("Doesn't Exist.")
+        //Command Doesn't Exist
     }
-
-    console.log(args)
 })
 
 

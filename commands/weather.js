@@ -1,19 +1,15 @@
-key = '25222afb74d1e9f508fe4c2a71c21d12';
+require('dotenv/config')
+
 var request, requestType, result;
 const requestTypes = ['description', 'desc', 'temp', 'temperature', ]
-var dataRaw;
-
 
 module.exports = {
 	name: 'weather',
     description: 'Weather Command',
     execute(message, args){
-        
-        if (args[0] != undefined && !requestTypes.includes(args[0].toLowerCase()))
-        {
+        if (args[0] != undefined && !requestTypes.includes(args[0].toLowerCase()))  {
             request = args.join(' ');
             requestType = 'desc';
-            console.log('Request: ' + request);
         } else if (requestTypes.includes(args[0].toLowerCase())) {
             request = args.join(' ');
             requestType = request.split(' ')[0];
@@ -21,7 +17,7 @@ module.exports = {
             console.log('R: ' + request + ' T: ' + requestType);
         }
 
-        fetch('https://api.openweathermap.org/data/2.5/weather?q=' + request + '&appid=' + key)  
+        fetch('https://api.openweathermap.org/data/2.5/weather?q=' + request + '&appid=' + process.env.API_KEY)  
         .then(function(resp) { return resp.json() }) // Convert data to json
         .then(function(data) {
             if (requestType == requestTypes[0] || requestType == requestTypes[1]) {
@@ -30,7 +26,6 @@ module.exports = {
               result = 'Temperature in ' + data.name + ': **' + (data.main.temp - 273.15).toFixed(0) + ' °C**';
             }
             message.channel.send(result);
-            console.log(data.name)
         })
         .catch(function(error) {
             message.channel.send('Could not retrieve Weather Data for "' + request + '".');
