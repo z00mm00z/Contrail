@@ -14,7 +14,6 @@ module.exports = {
             request = args.join(' ');
             requestType = request.split(' ')[0];
             request = request.replace(requestType + ' ', '');
-            console.log('R: ' + request + ' T: ' + requestType);
         }
 
         fetch('https://api.openweathermap.org/data/2.5/weather?q=' + request + '&appid=' + process.env.API_KEY)  

@@ -1,3 +1,4 @@
+//Find a way to not commit node_modules to git
 require('dotenv/config')
 
 const {Client, GatewayIntentBits, Collection} = require("discord.js");
