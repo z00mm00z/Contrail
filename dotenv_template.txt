@@ -1,0 +1,3 @@
+If you want to use this yourself, your .env file should contain:
+TOKEN= The token for your discord application
+API_KEY= The key for your openweathermap account

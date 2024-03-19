@@ -27,7 +27,7 @@ for(const file of commandFiles)
 }
 
 client.on('ready', () => {
-    console.log('Bot online.')
+    console.log('Bot online.');
 })
 
 client.on('messageCreate', message => {
@@ -37,10 +37,10 @@ client.on('messageCreate', message => {
         return;
     }
     if (message.content == '!ping') {
-        message.reply('pong')
+        message.reply('pong');
     }
     else if (message.content == '!weather'){
-        message.channel.send('Weather.')
+        message.channel.send('Weather.');
     }
 
     const args = message.content.slice(prefix.length).split(/ +/)
@@ -51,10 +51,10 @@ client.on('messageCreate', message => {
             client.commands.get(command).execute(message, args);
         } catch (error) {
             console.error(error);
-            message.channel.send('An error occured: ' + error)
+            message.channel.send('An error occured: ' + error);
         }
     }else{
-        //Command Doesn't Exist
+        message.channel.send('That command does not exist. Try another one.');
     }
 })
 

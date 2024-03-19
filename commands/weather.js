@@ -33,12 +33,18 @@ module.exports = {
     }
 };
 
-function degToCompass(angle) { //Returns direction from angle (degrees)
+//Returns a wind direction from an angle in degrees
+function degToCompass(angle) {
   _directions = ["North","North Northeast","Northeast","East Northeast","East","East Southeast", "Southeast", "South Southeast","South","South Southwest","South West","West Southwest","West","West Northwest","Northwest","North Northwest"];
-  return _directions[Math.round(angle / 45) % 8]; //Change 8 to 16 for more detail
+  return _directions[Math.round(angle / 45) % 8];
 }
 
+
+
 /*
+
+This is just an example of the data openweathermap returns.
+
 {
   coord: { lon: 18.4232, lat: -33.9258 },
   weather: [
